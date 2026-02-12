@@ -22,9 +22,9 @@ function AllImage() {
 
 
     return (
-        <div className="w-full pt-70 px-16">
+        <div className="w-full pt-70 max-sm:pt-30 px-14 max-sm:px-3">
             {/* Grid Layout 3 in a row */}
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-3 gap-3 max-sm:gap-2 max-sm:grid-cols-2">
                 {image.map((img, index) => (
                     <div
                         key={img.id}
@@ -43,7 +43,7 @@ function AllImage() {
                         <img
                             src={img.url}
                             alt={img.title}
-                            className="w-full h-60 object-cover transform transition duration-700 hover:scale-110"
+                            className="w-full h-60 max-sm:w-40 max-sm:h-25 object-cover transform transition duration-700 hover:scale-110"
                         />
                     </div>
                 ))}
@@ -55,25 +55,25 @@ function AllImage() {
                 <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
                     <button
                         onClick={() => setSelectedIndex(null)}
-                        className="absolute top-5 right-5 text-white text-2xl"
+                        className="absolute top-5 max-sm:top-2 right-5 text-white text-2xl"
                     >✕</button>
 
 
                     <button
                         onClick={prevImage}
-                        className="absolute left-5 text-white text-3xl"
+                        className={` ${selectedIndex === 0 ? "hidden" : ""} absolute left-5 max-sm:left-1 text-white text-3xl max-sm:text-xl`}
                     >◀</button>
 
 
                     <img
                         src={image[selectedIndex].url}
-                        className="max-w-[85%] max-h-[85%] rounded-xl transition duration-700"
+                        className="max-w-[85%] max-h-[85%] rounded-xl transition duration-700 max-sm:px-3"
                     />
 
 
                     <button
                         onClick={nextImage}
-                        className="absolute right-5 text-white text-3xl"
+                        className={` ${selectedIndex === image.length-1 ? "hidden" : ""} absolute right-5 max-sm:right-1 text-white text-3xl max-sm:text-xl`}
                     >▶</button>
                 </div>
             )}
