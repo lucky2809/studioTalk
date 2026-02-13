@@ -47,10 +47,10 @@ function Navbar() {
         ${show ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
       `}
     >
-      <div className='flex flex-col max-sm:flex-row items-center max-sm:justify-between gap-8 py-10 max-sm:py-5 max-sm:px-2'>
+      <div className='flex flex-col max-sm:flex-row items-center max-sm:justify-between gap-12 py-10 max-sm:py-5 max-sm:px-2'>
 
         {/* Logo */}
-        <div className='w-60 max-sm:w-48'>
+        <div className='w-70 max-sm:w-48'>
           <img className='w-full h-full object-contain' src="sdtlogo1.png" alt="logo" />
         </div>
 

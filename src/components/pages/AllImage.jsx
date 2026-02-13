@@ -22,7 +22,7 @@ function AllImage() {
 
 
     return (
-        <div className="w-full pt-70 max-sm:pt-30 px-14 max-sm:px-3">
+        <div className="w-full pt-60 max-sm:pt-30 px-14 max-sm:px-3">
             {/* Grid Layout 3 in a row */}
             <div className="grid grid-cols-3 gap-3 max-sm:gap-2 max-sm:grid-cols-2">
                 {image.map((img, index) => (
@@ -43,7 +43,7 @@ function AllImage() {
                         <img
                             src={img.url}
                             alt={img.title}
-                            className="w-full h-60 max-sm:w-40 max-sm:h-25 object-cover transform transition duration-700 hover:scale-110"
+                            className="w-full h-full md:h-80 lg:110 xl:h-[40vh] object-cover transform transition duration-700 hover:scale-110"
                         />
                     </div>
                 ))}
