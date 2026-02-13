@@ -31,7 +31,7 @@ function AllImage() {
                         ref={(el) => (ref.current[index] = el)}
                         data-index={index}
                         onClick={() => setSelectedIndex(index)}
-                        className={`
+                        className={` md:h-80 lg:110 xl:h-[40vh]
         cursor-pointer overflow-hidden
         transition-all duration-700 ease-out
         ${visible.includes(index)
@@ -43,7 +43,7 @@ function AllImage() {
                         <img
                             src={img.url}
                             alt={img.title}
-                            className="w-full h-full md:h-80 lg:110 xl:h-[40vh] object-cover transform transition duration-700 hover:scale-110"
+                            className="w-full h-full object-cover transform transition duration-700 hover:scale-110"
                         />
                     </div>
                 ))}
