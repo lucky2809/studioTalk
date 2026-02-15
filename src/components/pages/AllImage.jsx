@@ -22,9 +22,9 @@ function AllImage() {
 
 
     return (
-        <div className="w-full pt-60 max-sm:pt-30 px-14 max-sm:px-3">
+        <div className="w-full px-3 pt-30 md:px-10 lg:px-14 lg:pt-60 ">
             {/* Grid Layout 3 in a row */}
-            <div className="grid grid-cols-3 gap-3 max-sm:gap-2 max-sm:grid-cols-2">
+            <div className="grid lg:grid-cols-3 gap-3 max-sm:gap-2 grid-cols-2">
                 {image.map((img, index) => (
                     <div
                         key={img.id}
