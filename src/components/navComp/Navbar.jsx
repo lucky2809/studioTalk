@@ -197,8 +197,16 @@ function Navbar() {
             </Link>
           </li>
           <div className='w-full flex justify-center gap-8 items-center pt-10'>
-            <div><Icon className='text-black' icon="line-md:instagram" width="28" /></div>
-            <div><Icon className='text-black' icon="fluent-mdl2:edit-mail" width="28" /></div>
+            <div><a
+              href="https://www.instagram.com/studiodtalk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:scale-110 transition-transform"
+            ><Icon className='text-black' icon="line-md:instagram" width="26" /></a></div>
+            <div><a
+              href="mailto:yourmail@gmail.com"
+              className="hover:scale-110 transition-transform"
+            ><Icon className='text-black' icon="fluent-mdl2:edit-mail" width="26" /></a></div>
           </div>
         </ul>
 
