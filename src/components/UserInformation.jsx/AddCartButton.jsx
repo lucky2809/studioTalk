@@ -32,7 +32,7 @@ function AddCartButton({ product, variant, mainImage }) {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
     <Button
       variant="outlined"
       sx={{

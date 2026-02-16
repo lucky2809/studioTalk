@@ -6,6 +6,7 @@ import Login from './components/pages/Login'
 import Signup from './components/pages/Signup'
 import Home from './components/pages/Home'
 import Shop from './components/pages/Shop'
+import ProductCard from './components/pages/ProductCard'
 
 function App() {
 
