@@ -57,7 +57,7 @@ function ShopNavbar() {
     // 🔥 Load cart only once when user logs in
     useEffect(() => {
         if (user) {
-            loadCartFromBackend();
+            // loadCartFromBackend();
         }
     }, [user]);
 

@@ -4,13 +4,25 @@ import Login from './components/pages/Login'
 import Signup from './components/pages/Signup'
 import Home from './components/pages/Home'
 import Shop from './components/shop/Shop'
-import DashboardRoot from './components/Admin/Dashboard/DashboardRoot'
 
 function App() {
+
+  // ✅ ScrollToTop component
+  function ScrollToTop() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]); // runs on every route/path change
+
+    return null;
+  }
 
   return (
     <>
       <BrowserRouter>
+      {/* ✅ Place it inside Router but outside Routes */}
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/shop' element={<Shop />} />
