@@ -18,10 +18,8 @@ import {
 
 import {
     Menu as MenuIcon,
-    Dashboard as DashboardIcon,
-    Chat as ChatIcon,
-    BarChart as BarChartIcon,
-    Settings as SettingsIcon,
+    Image as UploadImage,
+    People as AllUser,
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
 } from "@mui/icons-material";
@@ -31,7 +29,8 @@ import { Outlet, NavLink, useLocation } from "react-router-dom";
 const drawerWidth = 240;
 const collapsedWidth = 80;
 
-export default function DashboardRoot() {
+
+function DashboardRoot() {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isCollapsed, setIsCollapsed] = React.useState(false);
     const location = useLocation();
@@ -45,10 +44,8 @@ export default function DashboardRoot() {
     };
 
     const menuItems = [
-        { text: "Overview", path: "/dashboard", icon: <DashboardIcon />, label: "overview" },
-        { text: "Analytics", path: "/dashboard/analytics", icon: <BarChartIcon /> },
-        { text: "Widget Settings", path: "/dashboard/widget", icon: <ChatIcon /> },
-        { text: "Settings", path: "/dashboard/settings", icon: <SettingsIcon /> },
+        { text: "All Users", path: "/dashboard/all-users", icon: <AllUser /> },
+        { text: "Upload Image       ", path: "/dashboard/uploadimage", icon: <UploadImage /> },
     ];
 
     const drawerContent = (
@@ -231,3 +228,5 @@ export default function DashboardRoot() {
         </Box>
     );
 }
+
+export default DashboardRoot;

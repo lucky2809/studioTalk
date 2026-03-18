@@ -90,7 +90,7 @@ function AdminUpload() {
         }
       });
 
-      await axios.post("http://localhost:8000/api/products/create", data, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/products/create`, data, {
         headers: {
           "Content-Type": "multipart/form-data"
         }

@@ -17,96 +17,122 @@ const ErrorMessage = ({ error, field }) => {
 function Login() {
 
 
-    const email = useRef("")
-    const password = useRef("")
-    const navigate = useNavigate()
-    const [error, setError] = useState({})
-    const { user, setUser } = useUserStore()
-    const [show, setShow] = useState(false);
+  const email = useRef("")
+  const password = useRef("")
+  const navigate = useNavigate()
 
+  const [error, setError] = useState({})
+  const [show, setShow] = useState(false)
+  const [loading, setLoading] = useState(false)
 
+  //   const { setUser } = useUserStore()
+  const { setAuth } = useUserStore.getState()
 
+  const signInHandler = async (e) => {
+    e.preventDefault()
 
-    const signInHandler = async (e) => {
-        e.preventDefault()
+    if (loading) return
 
-        const object = {
-            email: email.current.value,
-            password: password.current.value
-        }
-        // console.log(object)
-        if (!object.email) {
-            setError(prev => ({ ...prev, email: "Email is required" }))
-            return
-        } else {
-            setError(prev => ({ ...prev, email: "" }))
-        }
-        if (!object.password) {
-            setError(prev => ({ ...prev, password: "Password is required" }))
-            return
-        } else {
-            setError(prev => ({ ...prev, password: "" }))
-        }
-
-        try {
-            const url = `${import.meta.env.VITE_API_URL}/login/`
-            const fetchData = await fetch(url, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(object)
-            })
-            const data = await fetchData.json()
-            if (fetchData.ok) {
-                localStorage.setItem("access_token", data.token)
-                // alert(JSON.stringify(data.message))
-                toast.success("Login Successfull")
-                const fetchVerifyToken = async (token) => {
-                    try {
-                        const fetchData = await fetch(`${import.meta.env.VITE_API_URL}/verify-token/`, {
-                            method: "GET",
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        });
-                        const data = await fetchData.json();
-                        const role = data.user_data?.role
-                        setUser(data.user_data)
-                        if (role === "admin") {
-                            window.location.href = ("/")
-                        } else {
-                            navigate("/")
-                        }
-                    } catch (err) {
-                        console.error("Token verification failed:", err);
-
-                    }
-                };
-
-                const token = localStorage.getItem("access_token");
-                if (token) {
-                    fetchVerifyToken(token);
-                }
-
-            } else {
-                if (data.error_type === "email") {
-                    setError(prev => ({ ...prev, email: data.message }))
-                }
-                if (data.error_type === "password") {
-                    setError(prev => ({ ...prev, password: data.message }))
-                }
-                console.log("somthing went wrong ..!")
-                toast.warn(`${data.message}`)
-
-            }
-        } catch (err) {
-            console.log(err)
-
-
-        }
+    const object = {
+      email: email.current.value.toLowerCase(),
+      password: password.current.value
     }
 
+    if (!object.email) {
+      setError(prev => ({ ...prev, email: "Email is required" }))
+      toast.error("Email is required")
+      return
+    } else {
+      setError(prev => ({ ...prev, email: "" }))
+    }
 
-    console.log(error)
+    if (!object.password) {
+      setError(prev => ({ ...prev, password: "Password is required" }))
+      toast.error("Password is required")
+      return
+    } else {
+      setError(prev => ({ ...prev, password: "" }))
+    }
+
+    try {
+
+      setLoading(true)
+
+      const url = `${import.meta.env.VITE_API_URL}/login/`
+
+      const fetchData = await fetch(url, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(object)
+      })
+
+      const data = await fetchData.json()
+
+      if (fetchData.ok) {
+        console.log("SighnToken", data.token)
+        localStorage.setItem("access_token", data.token, data.user_data)
+
+        setAuth(data.user_data, data.token)
+
+        toast.success("Login Successful 🎉")
+
+        const fetchVerifyToken = async (token) => {
+          try {
+
+            const verify = await fetch(`${import.meta.env.VITE_API_URL}/verify-token/`, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+
+            const verifyData = await verify.json()
+
+            const role = verifyData.user_data?.role
+
+            setAuth(verifyData.user_data, data.token)
+
+            // if (role === "admin") {
+            //   navigate("/")
+            // } else {
+            navigate("/shop")
+            // }
+
+          } catch (err) {
+            console.error("Token verification failed:", err)
+            toast.error("Token verification failed")
+          }
+        }
+
+        const token = localStorage.getItem("access_token")
+
+        if (token) {
+          fetchVerifyToken(token)
+        }
+
+      } else {
+
+        if (data.error_type === "email") {
+          setError(prev => ({ ...prev, email: data.message }))
+        }
+
+        if (data.error_type === "password") {
+          setError(prev => ({ ...prev, password: data.message }))
+        }
+
+        toast.warning(data.message || "Login failed ❌")
+
+      }
+
+    } catch (err) {
+      console.log(err)
+      toast.error("Server error ❌")
+    } finally {
+      setLoading(false)
+    }
+  }
+  console.log("token",)
+
     return (
         <div className='main-charecter w-full'
             style={{ backgroundImage: `url(${bgimgurl}login.png)` }}
