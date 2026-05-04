@@ -1,4 +1,3 @@
-// src/store/useCartStore.js
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
@@ -9,96 +8,101 @@ const useCartStore = create(
 
       addCart: [],
 
-      // Load from backend
+      // 🔥 Load from backend
       loadCartFromBackend: async () => {
-        try {
-          const token = localStorage.getItem("access_token");
-          console.log(token)
-          const res = await axios.get(
-            `${import.meta.env.VITE_BACK_END_URL}/cart`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
+        const token = localStorage.getItem("access_token");
+        if (!token) return;
 
-          set({ addCart: res.data.data || [] });
-        } catch (err) {
-          console.log("Load Cart Error:", err);
-        }
+        const res = await axios.get(`${import.meta.env.VITE_BACK_END_URL}/cart`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        set({ addCart: res.data.data });
       },
 
-      // Add item (Backend + Zustand)
+      // 🔥 Add item
       addItem: async (item) => {
-        try {
-          const token = localStorage.getItem("access_token");
-          console.log("TOKEN SENT:", token);
+        const token = localStorage.getItem("access_token");
 
-          const res = await axios.post(
-            `${import.meta.env.VITE_BACK_END_URL}/cart/add`,
-            {
-              productId: item.id,
-              productName: item.name,
-              image: item.image,
-              price: item.price,
-              quantity: 1,
-            },
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-
+        if (!token) {
+          // guest mode
           set((state) => ({
-            addCart: [...state.addCart, res.data.cartItem],
+            addCart: [...state.addCart, item],
           }));
-        } catch (err) {
-          console.log("Add Item Error:", err.response?.data || err);
+          return;
         }
+
+        const res = await axios.post(
+          `${import.meta.env.VITE_BACK_END_URL}/cart/add`,
+          {
+            productId: item.id,
+            productName: item.name,
+            image: item.image,
+            price: item.price,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        get().loadCartFromBackend();
       },
 
-
-      // Remove item
+      // 🔥 Remove
       removeItem: async (id) => {
-        try {
-          const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("access_token");
 
-          await axios.delete(
-            `${import.meta.env.VITE_BACK_END_URL}/cart/${id}`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-
+        if (!token) {
           set((state) => ({
-            addCart: state.addCart.filter((item) => item._id !== id),
+            addCart: state.addCart.filter((i) => i.id !== id),
           }));
-        } catch (err) {
-          console.log("Delete Cart Item:", err);
+          return;
         }
+
+        await axios.delete(`${import.meta.env.VITE_BACK_END_URL}/cart/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        get().loadCartFromBackend();
       },
 
-      // Clear cart
+      // 🔥 Clear
       clearCart: async () => {
-        try {
-          const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("access_token");
 
-          await axios.delete(
-            `${import.meta.env.VITE_BACK_END_URL}/cart`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-
+        if (!token) {
           set({ addCart: [] });
-        } catch (err) {
-          console.log("Clear Cart Error:", err);
+          return;
         }
+
+        await axios.delete(`${import.meta.env.VITE_BACK_END_URL}/cart`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        set({ addCart: [] });
+      },
+
+      // 🔥 Sync on login
+      syncCartOnLogin: async () => {
+        const token = localStorage.getItem("access_token");
+        const localCart = get().addCart;
+
+        if (!token || localCart.length === 0) return;
+
+        await axios.post(
+          `${import.meta.env.VITE_BACK_END_URL}/cart/sync`,
+          { items: localCart },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        set({ addCart: [] });
+        get().loadCartFromBackend();
       },
 
     }),
-    {
-      name: "cart-storage",
-      getStorage: () => localStorage,
-    }
+    { name: "cart-storage" }
   )
 );
 

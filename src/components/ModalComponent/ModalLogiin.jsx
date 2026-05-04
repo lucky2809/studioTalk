@@ -2,7 +2,6 @@ import { Tune } from '@mui/icons-material'
 import { Box, Button, Modal, Typography } from '@mui/material'
 import React, { Fragment } from 'react'
 import CloseIcon from '@mui/icons-material/Close';
-import { AnimatedCard } from '../StyledComponents/StylecComp';
 import { useNavigate } from 'react-router-dom';
 
 function ModalLogiin({ modalNavLogin, setModalmodalNav }) {
@@ -19,7 +18,7 @@ function ModalLogiin({ modalNavLogin, setModalmodalNav }) {
                 open={modalNavLogin}
             // onClose={handleClose}
             >
-                <AnimatedCard className='bg-white rounded-md'>
+                <div className='bg-white rounded-md'>
                     <Box component={"main-modal-box"} sx={{ bgcolor: "white", }} >
                         <Button onClick={() => setModalmodalNav(false)} sx={{ color: "black", width: "100%", display: "flex", justifyContent: "end" }} > <CloseIcon /> </Button>
                         <div className=' h-40 w-80 px-5 flex flex-col gap-2 justify-center'>
@@ -27,7 +26,7 @@ function ModalLogiin({ modalNavLogin, setModalmodalNav }) {
                             <Button onClick={() => navigate('/login')} variant='contained' sx={{ width: "100%" }}>log in</Button>
                         </div>
                     </Box>
-                </AnimatedCard>
+                </div>
             </Modal>
         </Fragment>
     )

@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import { toast } from 'react-toastify';
 import useUserStore from '../../store/userStore';
+import CursorEffect from './section/CursorEffect';
 
 function Profile({ color = "#fff" }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,6 +48,8 @@ const handleLogout = () => {
 
   return (
     <Box sx={{ width: '100%', display: 'flex', alignItems: "center" }}>
+            <CursorEffect />
+
       {user ? (
         <div ref={dropdownRef} className="relative inline-block text-left">
 

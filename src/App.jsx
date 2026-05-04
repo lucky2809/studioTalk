@@ -7,9 +7,15 @@ import Shop from './components/shop/Shop'
 import DashboardRoot from './components/Admin/Dashboard/DashboardRoot'
 import { useEffect } from 'react'
 import ProtectedRoute from './components/Auth/ProtectedRoute'
-import UploadImage from './components/admin/UploadImage'
 import AllUser from './components/Admin/AllUser'
 import { AuthProvider } from './components/Auth/AuthProvider'
+import UploadProduct from './components/Admin/UploadProduct'
+import UploadImage from './components/Admin/UploadImage'
+import ProductDetail from './components/pages/ProductDetail'
+import Illustration from './components/pages/Illustration'
+import PublicRoute from './components/Auth/PublicRoute'
+import Checkout from './components/pages/Checkout'
+import UserDashboard from './components/Admin/Dashboard/UserDashboard'
 
 function App() {
 
@@ -30,16 +36,21 @@ function App() {
         {/* ✅ Place it inside Router but outside Routes */}
         <ScrollToTop />
         <AuthProvider>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/shop' element={<Shop />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path="/dashboard" element={<ProtectedRoute><DashboardRoot /></ProtectedRoute>}>
-            <Route path="uploadimage" element={<UploadImage />} />
-            <Route path="all-users" element={<AllUser />} />
-          </Route>
-        </Routes>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/shop' element={<Shop />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/illustration" element={<Illustration />} />
+            <Route path='/login' element={<PublicRoute><Login /></PublicRoute>} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/dashboard2" element={<UserDashboard />} />
+            <Route path="/dashboard" element={<ProtectedRoute><DashboardRoot /></ProtectedRoute>}>
+              <Route path="uploadimage" element={<UploadImage />} />
+              <Route path="all-users" element={<AllUser />} />
+              <Route path="upload-product" element={<UploadProduct />} />
+            </Route>
+          </Routes>
         </AuthProvider>
       </BrowserRouter>
     </>

@@ -73,7 +73,7 @@ function ShopNavbar() {
         ${show ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
       `}
         >
-            <div className=' w-full border flex py-5 px-2 md:px-10 lg:px-20 lg:py-10 '>
+            <div className=' w-full border flex py-5 px-2 md:px-10 lg:px-20 '>
                 <div className='hidden lg:flex lg:flex-col justify-center gap-5 items-center lg:visible '>
                     <div><a
                         href="https://www.instagram.com/studiodtalk"
@@ -95,12 +95,20 @@ function ShopNavbar() {
                     {/* Desktop Menu */}
                     <div className='hidden lg:flex lg:visible'>
                         <ul className='lg:flex lg:flex-wrap justify-center lg:gap-5 gap-7 font-DynaPuff text-lg'>
-
                             <li className='cursor-pointer transition'>
                                 <Link
                                     to="/"
                                     className={`pb-1 transition hover:text-gray-500
                 ${isActive('/') ? 'border-b-2 border-black' : 'border-b-2 border-transparent'}`}
+                                >
+                                    Home
+                                </Link>
+                            </li>
+                            <li className='cursor-pointer transition'>
+                                <Link
+                                    to="/illustration"
+                                    className={`pb-1 transition hover:text-gray-500
+                ${isActive('/illustration') ? 'border-b-2 border-black' : 'border-b-2 border-transparent'}`}
                                 >
                                     ILLUSTRATION
                                 </Link>
@@ -146,19 +154,19 @@ function ShopNavbar() {
                     </div>
                     <div>{/* 🛒 Cart Button */}
                         {/* {user && ( */}
-                            <span
-                                onClick={addItemIsOnHanlder}
-                                className="font-semibold flex items-center gap-1 text-md px-2 rounded-md relative cursor-pointer text-black"
-                            >
-                                {/* <IconButton aria-label="cart">
+                        <span
+                            onClick={addItemIsOnHanlder}
+                            className="font-semibold flex items-center gap-1 text-md px-2 rounded-md relative cursor-pointer text-black"
+                        >
+                            {/* <IconButton aria-label="cart">
                                     <Badge badgeContent={length} color="primary">
                                         <ShoppingCart />
                                     </Badge>
                                 </IconButton> */}
-                                <Icon className='text-black' icon="akar-icons:cart" width="26" />
-                            </span>
+                            <Icon className='text-black' icon="akar-icons:cart" width="26" />
+                        </span>
                         {/* )} */}
-                        </div>
+                    </div>
                 </div>
 
 
@@ -199,12 +207,20 @@ function ShopNavbar() {
                 }}
             >
                 <ul className="flex flex-col items-center justify-center h-full gap-8 text-lg font-semibold text-black">
-
-                    <li>
+                    <li className='cursor-pointer transition'>
                         <Link
                             to="/"
+                            className={`pb-1 transition hover:text-gray-500
+                ${isActive('/') ? 'border-b-2 border-black' : 'border-b-2 border-transparent'}`}
+                        >
+                            Home
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to="/illustration"
                             onClick={() => setOpen(false)}
-                            className={`${isActive('/') ? 'border-b-2 border-black' : ''}`}
+                            className={`${isActive('/illustration') ? 'border-b-2 border-black' : ''}`}
                         >
                             ILLUSTRATION
                         </Link>

@@ -53,7 +53,7 @@ function Navbar() {
         ${show ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
       `}
     >
-      <div className='flex py-5 px-2 md:px-10 lg:px-20 lg:py-10 '>
+      <div className='flex py-5 px-2 md:px-10 lg:px-20'>
         <div className='hidden lg:flex lg:flex-col justify-center gap-5 items-center lg:visible '>
           <div><a
             href="https://www.instagram.com/studiodtalk"
@@ -75,12 +75,20 @@ function Navbar() {
           {/* Desktop Menu */}
           <div className='hidden lg:flex lg:visible'>
             <ul className='lg:flex lg:flex-wrap justify-center lg:gap-5 gap-7 font-DynaPuff text-lg'>
-
               <li className='cursor-pointer transition'>
                 <Link
                   to="/"
                   className={`pb-1 transition hover:text-gray-500
                 ${isActive('/') ? 'border-b-2 border-black' : 'border-b-2 border-transparent'}`}
+                >
+                  HOME
+                </Link>
+              </li>
+              <li className='cursor-pointer transition'>
+                <Link
+                  to="/illustration"
+                  className={`pb-1 transition hover:text-gray-500
+                ${isActive('/illustration') ? 'border-b-2 border-black' : 'border-b-2 border-transparent'}`}
                 >
                   ILLUSTRATION
                 </Link>
@@ -156,12 +164,20 @@ function Navbar() {
         }}
       >
         <ul className="flex flex-col items-center justify-center h-full gap-8 text-lg font-semibold text-black">
-
-          <li>
+<li>
             <Link
               to="/"
               onClick={() => setOpen(false)}
               className={`${isActive('/') ? 'border-b-2 border-black' : ''}`}
+            >
+              HOME
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/illustration"
+              onClick={() => setOpen(false)}
+              className={`${isActive('/illustration') ? 'border-b-2 border-black' : ''}`}
             >
               ILLUSTRATION
             </Link>

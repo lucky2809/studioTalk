@@ -19,6 +19,7 @@ import {
 import {
     Menu as MenuIcon,
     Image as UploadImage,
+    Image as UploadProduct,
     People as AllUser,
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
@@ -44,8 +45,9 @@ function DashboardRoot() {
     };
 
     const menuItems = [
+        { text: "Upload Image", path: "/dashboard/uploadimage", icon: <UploadImage /> },
         { text: "All Users", path: "/dashboard/all-users", icon: <AllUser /> },
-        { text: "Upload Image       ", path: "/dashboard/uploadimage", icon: <UploadImage /> },
+        { text: "Upload Product", path: "/dashboard/upload-product", icon: <UploadProduct /> },
     ];
 
     const drawerContent = (

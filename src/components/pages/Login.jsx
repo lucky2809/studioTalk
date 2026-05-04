@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import useUserStore from '../../store/userStore'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import CursorEffect from './section/CursorEffect'
 
 
 const bgimgurl = import.meta.env.BASE_URL
@@ -137,6 +138,7 @@ function Login() {
         <div className='main-charecter w-full'
             style={{ backgroundImage: `url(${bgimgurl}login.png)` }}
         >
+                <CursorEffect />
             <div className='max-sm:px-5 max-sm:py-5'>
                 {/* <Navbar /> */}
                 <div className=' w-full flex justify-between'>

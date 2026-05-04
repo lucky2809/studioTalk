@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import React, { useRef, useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
+import CursorEffect from './section/CursorEffect'
 // import Navbar from '../navComp/Navbar'
 
 const ErrorMessage = ({ error, field }) => {
@@ -79,6 +80,7 @@ function Signup() {
 
     return (
         <div className='max-sm:px-5 max-sm:py-5 flex flex-col gap-6'>
+                  <CursorEffect />
             {/* <Navbar /> */}
             {/* <div className='w-full'> */}
             <div className='flex w-full font-DynaPuff'>
